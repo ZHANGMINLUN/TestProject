@@ -20,6 +20,9 @@
     <Generator>MSBuild:Compile</Generator>
     <SubType>Designer</SubType>
   </Page>
+  <Page Include="Views\View.xaml">
+    <Generator>MSBuild:Compile</Generator>
+  </Page>
   <Compile Include="App.xaml.cs">
     <DependentUpon>App.xaml</DependentUpon>
     <SubType>Code</SubType>
@@ -28,10 +31,13 @@
     <DependentUpon>MainWindow.xaml</DependentUpon>
     <SubType>Code</SubType>
   </Compile>
-  <Compile Include="Model\Data.cs" />
-  <Compile Include="Model\Interface\IData.cs" />
-  <Compile Include="Service\DataProcessing.cs" />
-  <Compile Include="ViewModel\ViewModel.cs" />
+  <Compile Include="Models\ChartModel.cs" />
+  <Compile Include="Models\Data.cs" />
+  <Compile Include="Models\Interfaces\IChartModel.cs" />
+  <Compile Include="Models\Interfaces\IData.cs" />
+  <Compile Include="Services\DataProcessing.cs" />
+  <Compile Include="ViewModels\ViewModel.cs" />
+  <Compile Include="Views\View.xaml.cs" />
 </ItemGroup>
 
 </Project>
