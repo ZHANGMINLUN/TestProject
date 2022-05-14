@@ -22,25 +22,41 @@
 
         <!--Rows Split-->
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--Title-->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   TextAlignment="Center"
+                   Text="Interview Project"
+                   FontSize="16" FontWeight="Bold"/>
 
+        <!--Chart-->
         <telerik:RadCartesianChart x:Name="barChart"
                                    Palette="Forest"
+                                   HoverMode="FadeOtherSeries"
                                    Grid.Column="0"
-                                   Grid.Row="0"
-                                   Grid.RowSpan="2">
+                                   Grid.Row="1"
+                                   Grid.RowSpan="2"
+                                   Margin="20,20,20,20">
+            
             <!--Horizontal Axis-->
             <telerik:RadCartesianChart.HorizontalAxis>
-                <telerik:CategoricalAxis/>
+                <telerik:CategoricalAxis Title="Timeseries(min)" FontSize="16"/>
             </telerik:RadCartesianChart.HorizontalAxis>
 
             <!--Vertical Axis-->
             <telerik:RadCartesianChart.VerticalAxis>
-                <telerik:LinearAxis/>
+                <telerik:LinearAxis Title="Count" FontSize="16"/>
             </telerik:RadCartesianChart.VerticalAxis>
+
+            <!--Grid-->
+            <telerik:RadCartesianChart.Grid>
+                <telerik:CartesianChartGrid MajorLinesVisibility="Y" StripLinesVisibility="Y" />
+            </telerik:RadCartesianChart.Grid>
+
 
             <!--Human-->
             <!--Series-->
@@ -50,16 +66,12 @@
                                ValueBinding="Value"
                                CombineMode="Stack"
                                ShowLabels="True"
-                               Visibility="{Binding VisibleHuman, 
-                                            Converter={StaticResource BoolToVis}}">
+                               Visibility="{Binding VisibleHuman,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
-                    <telerik:SeriesLegendSettings Title="Human" />
-                    
-                    
-                    
+                    <telerik:SeriesLegendSettings Title="Human"/>
                 </telerik:BarSeries.LegendSettings>
-                
+
             </telerik:BarSeries>
 
             <!--Car-->
@@ -69,7 +81,8 @@
                                CategoryBinding="Index"
                                ValueBinding="Value"
                                CombineMode="Stack"
-                               ShowLabels="True">
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleCar,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Car" />
@@ -83,7 +96,8 @@
                                CategoryBinding="Index"
                                ValueBinding="Value"
                                CombineMode="Stack"
-                               ShowLabels="True">
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleBike,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Bike" />
@@ -97,7 +111,8 @@
                                CategoryBinding="Index"
                                ValueBinding="Value"
                                CombineMode="Stack"
-                               ShowLabels="True">
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleTruck,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Truck" />
@@ -111,7 +126,8 @@
                                CategoryBinding="Index"
                                ValueBinding="Value"
                                CombineMode="Stack"
-                               ShowLabels="True">
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleBus,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Bus" />
@@ -125,7 +141,8 @@
                                CategoryBinding="Index"
                                ValueBinding="Value"
                                CombineMode="Stack"
-                               ShowLabels="True">
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleTaxi,Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Taxi" />
@@ -134,69 +151,72 @@
         </telerik:RadCartesianChart>
 
         <!--Legend Panel-->
-        <StackPanel Grid.Column="1" Grid.Row="0"
+        <StackPanel Grid.Column="1" Grid.Row="1"
 					Margin="0 25 0 0"
 					HorizontalAlignment="Center">
+            
+            <!--Legend Title-->
             <TextBlock Text="LEGEND:"
-					   Margin="0 0 0 5"
+                       FontWeight="Bold"
 					   HorizontalAlignment="Left"/>
 
+            <!--Legend Style-->
             <telerik:RadLegend Items="{Binding LegendItems, ElementName=barChart}"
-							       Foreground="#FF767676"
-							       FontFamily="Segoe UI">
-                <telerik:RadLegend.ItemTemplate>
+							   Foreground="#FF767676"
+							   FontFamily="Segoe UI">
+                <!--<telerik:RadLegend.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox x:Name="chkForVisibility" IsChecked="True"/>
-                            <Path Fill="{Binding MarkerFill}">
+                            <CheckBox Name="chkForVisibility" IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Owner.Visibility, Mode=TwoWay, Converter={StaticResource BoolToVis}}"/>
+                            <Path Fill="{Binding MarkerFill}" Margin="1 2 0 1">
                                 <Path.Data>
                                     <Binding Path="ActualMarkerGeometry" RelativeSource="{RelativeSource AncestorType=telerik:LegendItemControl}"></Binding> 
                                 </Path.Data>
                             </Path>
-                            <TextBlock Text="{Binding Title}"/>
+                            <TextBlock Text="{Binding Title}" Margin="1 0 0 0"/>
                         </StackPanel>
                     </DataTemplate>
-                </telerik:RadLegend.ItemTemplate>
+                </telerik:RadLegend.ItemTemplate>-->
             </telerik:RadLegend>
         </StackPanel>
 
-        <!--Combobox Panel--><!--
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            
-            --><!--Human--><!--
+
+        <!--Combobox Panel-->
+        <StackPanel Grid.Row="2" Grid.Column="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Top">
+
+            <!--TextBlock-->
+            <TextBlock Text="ENABLE:" FontWeight="Bold"/>
+
+            <!--Human-->
             <CheckBox Content="Human"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabelHuman, Mode=TwoWay}"/>
+					  IsChecked="{Binding VisibleHuman, Mode=TwoWay}"/>
             
-            --><!--Car--><!--
+            <!--Car-->
             <CheckBox Content="Car"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+					  IsChecked="{Binding VisibleCar, Mode=TwoWay}" />
             
-            --><!--Bike--><!--
+            <!--Bike-->
             <CheckBox Content="Bike"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+					  IsChecked="{Binding VisibleBike, Mode=TwoWay}" />
             
-            --><!--Truck--><!--
+            <!--Truck-->
             <CheckBox Content="Truck"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+					  IsChecked="{Binding VisibleTruck, Mode=TwoWay}" />
             
-            --><!--Bus--><!--
+            <!--Bus-->
             <CheckBox Content="Bus"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+					  IsChecked="{Binding VisibleBus, Mode=TwoWay}" />
             
-            --><!--Taxi--><!--
+            <!--Taxi-->
             <CheckBox Content="Taxi"
 					  Margin="0,2"
-					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
-        </StackPanel>-->
-
-
+					  IsChecked="{Binding VisibleTaxi, Mode=TwoWay}" />
+        </StackPanel>
     </Grid>
-
-    
-
 </UserControl>

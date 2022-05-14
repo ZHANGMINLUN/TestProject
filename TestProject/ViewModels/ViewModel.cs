@@ -40,18 +40,18 @@ namespace TestProject.ViewModels
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    Human.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Human, true));
-                    Car.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Car, true));
-                    Bike.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Bike, true));
-                    Truck.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Truck, true));
-                    Bus.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Bus, true));
-                    Taxi.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Taxi, true));
+                    Human.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Human));
+                    Car.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Car));
+                    Bike.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Bike));
+                    Truck.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Truck));
+                    Bus.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Bus));
+                    Taxi.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Taxi));
                 }
             }
         }
 
 
-
+        #region Stupid Method
         private bool _visHuman = true;
         public bool VisibleHuman
         {
@@ -68,5 +68,91 @@ namespace TestProject.ViewModels
                 }
             }
         }
+
+        private bool _visCar = true;
+        public bool VisibleCar
+        {
+            get
+            {
+                return this._visCar;
+            }
+            set
+            {
+                if (this._visCar != value)
+                {
+                    this._visCar = value;
+                    //this.OnPropertyChanged("ShowLabels");
+                }
+            }
+        }
+
+        private bool _visBike = true;
+        public bool VisibleBike
+        {
+            get
+            {
+                return this._visBike;
+            }
+            set
+            {
+                if (this._visBike != value)
+                {
+                    this._visBike = value;
+                    //this.OnPropertyChanged("ShowLabels");
+                }
+            }
+        }
+
+        private bool _visTruck = true;
+        public bool VisibleTruck
+        {
+            get
+            {
+                return this._visTruck;
+            }
+            set
+            {
+                if (this._visTruck != value)
+                {
+                    this._visTruck = value;
+                    //this.OnPropertyChanged("ShowLabels");
+                }
+            }
+        }
+
+        private bool _visBus = true;
+        public bool VisibleBus
+        {
+            get
+            {
+                return this._visBus;
+            }
+            set
+            {
+                if (this._visBus != value)
+                {
+                    this._visBus = value;
+                    //this.OnPropertyChanged("ShowLabels");
+                }
+            }
+        }
+
+        private bool _visTaxi = true;
+        public bool VisibleTaxi
+        {
+            get
+            {
+                return this._visTaxi;
+            }
+            set
+            {
+                if (this._visTaxi != value)
+                {
+                    this._visTaxi = value;
+                    //this.OnPropertyChanged("ShowLabels");
+                }
+            }
+        }
+        #endregion
     }
 }
