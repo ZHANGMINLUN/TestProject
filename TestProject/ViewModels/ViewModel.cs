@@ -18,7 +18,6 @@ namespace TestProject.ViewModels
         public ObservableCollection<ChartModel> Bus { get; set; }
         public ObservableCollection<ChartModel> Taxi { get; set; }
 
-
         DataProcessing dataProcessing;
         List<Data> listData;
         public ViewModel()
@@ -47,6 +46,25 @@ namespace TestProject.ViewModels
                     Truck.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Truck, true));
                     Bus.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Bus, true));
                     Taxi.Add(new ChartModel(/*listData[i].Time*/i+1, listData[i].Taxi, true));
+                }
+            }
+        }
+
+
+
+        private bool _visHuman = true;
+        public bool VisibleHuman
+        {
+            get
+            {
+                return this._visHuman;
+            }
+            set
+            {
+                if (this._visHuman != value)
+                {
+                    this._visHuman = value;
+                    //this.OnPropertyChanged("ShowLabels");
                 }
             }
         }

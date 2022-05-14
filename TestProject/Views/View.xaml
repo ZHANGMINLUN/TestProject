@@ -8,11 +8,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+
     <Grid>
         <!--Columns Split-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
 
         <!--Rows Split-->
@@ -20,7 +25,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
 
         <telerik:RadCartesianChart x:Name="barChart"
                                    Palette="Forest"
@@ -40,25 +45,31 @@
             <!--Human-->
             <!--Series-->
             <telerik:BarSeries x:Name="humanSeries"
-                                   ItemsSource="{Binding Human}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Human}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True"
+                               Visibility="{Binding VisibleHuman, 
+                                            Converter={StaticResource BoolToVis}}">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Human" />
+                    
+                    
+                    
                 </telerik:BarSeries.LegendSettings>
+                
             </telerik:BarSeries>
 
             <!--Car-->
             <!--Series-->
             <telerik:BarSeries x:Name="carSeries"
-                                   ItemsSource="{Binding Car}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Car}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Car" />
@@ -68,11 +79,11 @@
             <!--Bike-->
             <!--Series-->
             <telerik:BarSeries x:Name="bikeSeries"
-                                   ItemsSource="{Binding Bike}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Bike}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Bike" />
@@ -82,11 +93,11 @@
             <!--Truck-->
             <!--Series-->
             <telerik:BarSeries x:Name="truckSeries"
-                                   ItemsSource="{Binding Truck}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Truck}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Truck" />
@@ -96,11 +107,11 @@
             <!--Bus-->
             <!--Series-->
             <telerik:BarSeries x:Name="busSeries"
-                                   ItemsSource="{Binding Bus}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Bus}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Bus" />
@@ -110,30 +121,82 @@
             <!--Taxi-->
             <!--Series-->
             <telerik:BarSeries x:Name="taxiSeries"
-                                   ItemsSource="{Binding Taxi}"
-                                   CategoryBinding="Index"
-                                   ValueBinding="Value"
-                                   CombineMode="Stack"
-                                   ShowLabels="True">
+                               ItemsSource="{Binding Taxi}"
+                               CategoryBinding="Index"
+                               ValueBinding="Value"
+                               CombineMode="Stack"
+                               ShowLabels="True">
                 <!--Legend-->
                 <telerik:BarSeries.LegendSettings>
                     <telerik:SeriesLegendSettings Title="Taxi" />
                 </telerik:BarSeries.LegendSettings>
             </telerik:BarSeries>
         </telerik:RadCartesianChart>
-        
-        <!--Stack Panel-->
+
+        <!--Legend Panel-->
         <StackPanel Grid.Column="1" Grid.Row="0"
-					Margin="0 14 0 0"
+					Margin="0 25 0 0"
 					HorizontalAlignment="Center">
             <TextBlock Text="LEGEND:"
 					   Margin="0 0 0 5"
 					   HorizontalAlignment="Left"/>
 
             <telerik:RadLegend Items="{Binding LegendItems, ElementName=barChart}"
-							   Foreground="#FF767676"
-							   FontFamily="Segoe UI"/>
+							       Foreground="#FF767676"
+							       FontFamily="Segoe UI">
+                <telerik:RadLegend.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="chkForVisibility" IsChecked="True"/>
+                            <Path Fill="{Binding MarkerFill}">
+                                <Path.Data>
+                                    <Binding Path="ActualMarkerGeometry" RelativeSource="{RelativeSource AncestorType=telerik:LegendItemControl}"></Binding> 
+                                </Path.Data>
+                            </Path>
+                            <TextBlock Text="{Binding Title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </telerik:RadLegend.ItemTemplate>
+            </telerik:RadLegend>
         </StackPanel>
 
+        <!--Combobox Panel--><!--
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            
+            --><!--Human--><!--
+            <CheckBox Content="Human"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabelHuman, Mode=TwoWay}"/>
+            
+            --><!--Car--><!--
+            <CheckBox Content="Car"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+            
+            --><!--Bike--><!--
+            <CheckBox Content="Bike"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+            
+            --><!--Truck--><!--
+            <CheckBox Content="Truck"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+            
+            --><!--Bus--><!--
+            <CheckBox Content="Bus"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+            
+            --><!--Taxi--><!--
+            <CheckBox Content="Taxi"
+					  Margin="0,2"
+					  IsChecked="{Binding ShowLabels, Mode=TwoWay}" />
+        </StackPanel>-->
+
+
     </Grid>
+
+    
+
 </UserControl>

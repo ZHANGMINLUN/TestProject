@@ -10,6 +10,6 @@ namespace TestProject.Model.Interfaces
     {
         int Index { get; set; }
         int Value { get; set; }
-        bool IsShow { get; set; }
+        bool IsVisible { get; set; }
     }
 }
